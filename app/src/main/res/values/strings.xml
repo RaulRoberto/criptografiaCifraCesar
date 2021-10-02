@@ -1,0 +1,7 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">criptografiaCifraCesar</string>
+    <string name="op_o">Opção</string>
+    <string name="chave">Chave:</string>
+    <string name="converter">Converter</string>
+    <string name="digite_o_texto_a_ser_criptografado_descriptografado" tools:ignore="DuplicateDefinition">Digite o texto a ser criptografado/Descriptografado:</string>
+</resources>
