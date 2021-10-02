@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         var opcoes = arrayOf("Criptografar","Descriptografar")
 
         opcao.adapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,opcoes)
+
         texto.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                a.chave=chave.text.toString().toInt()
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -57,12 +59,11 @@ class MainActivity : AppCompatActivity() {
 
         botao.setOnClickListener {
             //Toast.makeText(applicationContext,opcoes[opcao.selectedItem.toString()],Toast.LENGTH_LONG).show()
-
-//            print(opcao.selectedItemPosition.toString())
-            if(opcao.selectedItemPosition.toString() == opcoes[0]){
+            texto.text=""
+            if(opcao.selectedItemPosition.toString() == "Criptografar"){
                 Toast.makeText(applicationContext,"Texto criptografado!!",Toast.LENGTH_SHORT).show()
                 texto.text=a.criptografar()
-            }else if(opcao.selectedItemPosition.toString()==opcoes[1]){
+            }else if(opcao.selectedItemPosition.toString()=="Descriptografar"){
                 Toast.makeText(applicationContext,"Texto descriptografado!!",Toast.LENGTH_SHORT).show()
                 texto.text=a.descriptografar()
 
