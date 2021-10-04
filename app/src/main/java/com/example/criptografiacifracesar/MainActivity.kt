@@ -11,64 +11,47 @@ import com.example.criptografiacifracesar.cifras.CifraDeCesar
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var texto: TextView
+    lateinit var texto: EditText
     lateinit var opcao : Spinner
     lateinit var botao : Button
-    lateinit var chave : TextView
+    lateinit var chave : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        texto = findViewById(R.id.txtTexto)
-        opcao = findViewById(R.id.spnOpc)
         botao = findViewById(R.id.btnConvert)
-        chave = findViewById(R.id.txtChave)
-        var a = CifraDeCesar("",0)
+        botao.setOnClickListener {
+            //Toast.makeText(applicationContext,opcoes[opcao.selectedItem.toString()],Toast.LENGTH_LONG).show()
+            cripto()
+        }
+    }
+    fun cripto(){
+
         var opcoes = arrayOf("Criptografar","Descriptografar")
 
         opcao.adapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,opcoes)
+        texto = findViewById(R.id.txtTexto)
+        opcao = findViewById(R.id.spnOpc)
 
-        texto.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                a.text=texto.text.toString()
-                //adicionar testes para validação de letras inválidas
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                a.text=texto.text.toString()
-            }
-        })
-        chave.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                a.chave=chave.text.toString().toInt()
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                a.chave=chave.text.toString().toInt()
-            }
-
-        })
+        chave = findViewById(R.id.txtChave)
 
 
-        botao.setOnClickListener {
-            //Toast.makeText(applicationContext,opcoes[opcao.selectedItem.toString()],Toast.LENGTH_LONG).show()
-            texto.text=""
-            if(opcao.selectedItemPosition.toString() == "Criptografar"){
-                Toast.makeText(applicationContext,"Texto criptografado!!",Toast.LENGTH_SHORT).show()
-                texto.text=a.criptografar()
-            }else if(opcao.selectedItemPosition.toString()=="Descriptografar"){
-                Toast.makeText(applicationContext,"Texto descriptografado!!",Toast.LENGTH_SHORT).show()
-                texto.text=a.descriptografar()
+        val texto1 = texto.text.toString()
+        val opcao = opcao.toString().toInt()
+        val chave = chave.text.toString().toInt()
 
-            }
+        val cifrar = CifraDeCesar(texto1, chave)
 
+
+//        val vtexto =a.criptografar(texto.text.toString(),chave.text.toString().toInt())
+//        val vtexto2=a.descriptografar(texto.text.toString(),chave.text.toString().toInt())
+
+        if(opcao == 0){
+            Toast.makeText(applicationContext,"Texto criptografado!!",Toast.LENGTH_SHORT).show();
+            texto.text= cifrar.criptografar()
+        }else if(opcao==1){
+            Toast.makeText(applicationContext,"Texto descriptografado!!",Toast.LENGTH_SHORT).show();
+            texto.text= cifrar.descriptografar()
         }
     }
 }

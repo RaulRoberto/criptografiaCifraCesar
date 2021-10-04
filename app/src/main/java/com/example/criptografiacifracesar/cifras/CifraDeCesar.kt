@@ -1,14 +1,6 @@
 package com.example.criptografiacifracesar.cifras
 
-import java.util.*
-
-class CifraDeCesar (texto: String,chav: Int){
-    //  deixando o texto totalmente em uppercase;
-    var text= texto.uppercase(Locale.getDefault())
-    var chave = chav
-
-//  variavel para já utilizar a função de descriptografar sem
-//  necessidade de passar parâmetros
+class CifraDeCesar (var mensagem: String, var chave: Int){
 
     var cifrado=""
     val A=65 //cod limite minimo para alfabeto
@@ -17,35 +9,37 @@ class CifraDeCesar (texto: String,chav: Int){
 
     fun criptografar(): String {
         var aux= ""
-        for (x in 0..text.length-1){
+        var mensagem = mensagem.uppercase()
+        for (x in 0..mensagem.length-1){
 
-            if(text[x].code >Z || text[x].code <A){
+            if(mensagem[x].code >Z || mensagem[x].code <A){
                 aux += " "
-            }else if((text[x].code + chave)>Z){
-                aux += (text[x].code - (alfabeto-chave)).toChar()
+            }else if((mensagem[x].code + chave)>Z){
+                aux += (mensagem[x].code - (alfabeto-chave)).toChar()
             }
             else{
-                aux += (text[x].code + chave).toChar()
+                aux += (mensagem[x].code + chave).toChar()
             }
 
         }
-        cifrado = aux
-        return aux.toString()
+//        cifrado = aux
+        return aux.uppercase().toString()
     }
 
     fun descriptografar():String{
         var aux=""
-        for (x in 0..cifrado.length-1){
-            if(cifrado[x].code >Z || text[x].code <A){
+        var mensagem = mensagem.uppercase()
+        for (x in 0..mensagem.length-1){
+            if(mensagem[x].code >Z || mensagem[x].code <A){
                 aux += " "
-            }else if((cifrado[x].code - chave)<A){
-                aux += (cifrado[x].code + (alfabeto-chave)).toChar()
+            }else if((mensagem[x].code - chave)<A){
+                aux += (mensagem[x].code + (alfabeto-chave)).toChar()
             }
             else{
-                aux += (cifrado[x].toChar() - chave).toChar()
+                aux += (mensagem[x].toChar() - chave).toChar()
             }
         }
-        return aux.toString()
+        return aux.uppercase().toString()
     }
 }
 
